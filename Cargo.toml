@@ -1,0 +1,7 @@
+[package]
+name = "super_mini_math_lib"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bit-struct = "0.3.2"
