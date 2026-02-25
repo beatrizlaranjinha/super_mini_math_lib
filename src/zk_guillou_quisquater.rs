@@ -1,14 +1,14 @@
 use std::error::Error;
 
-use crate::{inverso_modular, prime};
+use crate::{eea, prime};
 
 pub struct State {
     pub p: u32,
     pub q: u32,
     pub v: u32,
-    pub identity: u32,
-    pub nonce: u32,
-    pub challange: u32,
+    pub identity: u32,  //ja
+    pub nonce: u32,     //r -> número aleatorio
+    pub challange: u32, //e
 }
 
 impl State {
@@ -18,7 +18,7 @@ impl State {
         }
         let n = self.p * self.q;
         let phi = (self.p - 1) * (self.q - 1);
-        let s = match inverso_modular(self.v, phi) {
+        let s = match eea(self.v, phi) {
             Some(s) => s,
             None => return Err("não existe inversão modular aquii!".into()),
         }; //visivel para todos os utilizadores
@@ -27,7 +27,7 @@ impl State {
             //só quero percorrer x vezes
             secret = (secret * self.identity) % n;
         }
-        secret = match inverso_modular(secret, n) {
+        secret = match eea(secret, n) {
             Some(secret) => secret,
             None => return Err("não existe inverso modular".into()),
         };

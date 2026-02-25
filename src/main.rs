@@ -1,8 +1,6 @@
 use std::error::Error;
 
-use super_mini_math_lib::{
-    Number, bit_add, inverso_modular, mdv, power, zk_guillou_quisquater::State,
-};
+use super_mini_math_lib::{Number, bit_add, eea, mdv, power, zk_guillou_quisquater::State};
 
 fn main() -> Result<(), Box<dyn Error>> {
     /* let mut num = Number { value: [false; 32] };
@@ -11,16 +9,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     num2.value[1] = true; //2
     let rest = bit_add(num, num2); // 1 + 2
     println!("{:?}", rest); */
-    let power = power(2, 7);
+    let power = power(3, 13);
     println!("{:?}", power);
     let mdv = mdv(48, 18);
     println!("{:?}", mdv);
-    let inverso_modular = inverso_modular(7, 26);
-    println!("{:?}", inverso_modular);
+    let eea = eea(7, 26);
+    println!("{:?}", eea);
 
     let state = State {
-        p: 17,
-        q: 11,
+        p: 4,
+        q: 59,
         v: 7,
         identity: 13,
         nonce: 59,

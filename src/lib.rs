@@ -60,26 +60,60 @@ pub fn mdv(mut a: u32, mut b: u32) -> u32 {
     a
 }
 
-pub fn inverso_modular(a: u32, m: u32) -> Option<u32> {
-    if mdv(a, m) != 1 {
+pub fn domodulus(x: u32, m: u32) -> u32 {
+    x % m
+}
+
+pub fn eea(x: u32, m: u32) -> Option<u32> {
+    if m == 0 {
+        return None;
+    } //nunca há inverso modular de 0 * inv ≡ 1
+    if x == 0 {
         return None;
     }
-    for x in 1..m {
-        if (a * x) % m == 1 {
-            return Some(x);
+
+    //para guardar o resto das divisões do algoritmo de euclides
+    let mut x1: u32 = m; // m≡0(mod m)
+    let mut y1: u32 = m;
+
+    //coeficientes para o inverso
+    let mut x2: u32 = x;
+    let mut y2: u32 = 1;
+
+    while x2 != 1 {
+        // so quando chega a gcd(x,m)=1 é que existe inverso modular
+        if x2 == 0 {
+            return None;
         }
+
+        let resto = x1 % x2; //x1=divisao⋅x2+resto
+        let divisao = x1 / x2;
+
+        //não podemos ter negativos logo vamos fazer a versão modular
+        let prod = (((y2 as u64) * (divisao as u64)) % (m as u64)) as u32;
+        let y = (((y1 as u64) + (m as u64) - (prod as u64)) % (m as u64)) as u32;
+        // (y1+m−prod)mod m // y1 = 3, prod = 5, m = 7
+
+        x1 = x2;
+        x2 = resto;
+        y1 = y2;
+        y2 = y;
     }
-    None
+
+    Some(domodulus(y2, m))
 }
 
 pub fn prime(n: u32) -> bool {
     let root = (n as f64).sqrt() as u32;
-    for i in 2..root {
+
+    for i in 2..=root {
         if n % i == 0 {
             return false;
         }
     }
+
     true
 }
+
 //é primo se for maior que 1
 // e divisível apenas por 1 e por si próprio
