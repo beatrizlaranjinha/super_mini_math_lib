@@ -1,5 +1,6 @@
 use std::error::Error;
 
+use bit_struct::u6;
 use super_mini_math_lib::{Number, bit_add, eea, mdv, power, zk_guillou_quisquater::State};
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -9,15 +10,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     num2.value[1] = true; //2
     let rest = bit_add(num, num2); // 1 + 2
     println!("{:?}", rest); */
-    let power = power(3, 13);
-    println!("{:?}", power);
-    let mdv = mdv(48, 18);
-    println!("{:?}", mdv);
-    let eea = eea(7, 26);
-    println!("{:?}", eea);
+    //let power = power(3, 13);
+    //println!("{:?}", power);
+    //let mdv = mdv(48, 18);
+    //println!("{:?}", mdv);
+    let eea1 = eea(50, 977);
+    let eea2 = eea1.unwrap();
+    println!("{:?} {:?}", eea2, (eea2 * 50 % 977));
 
     let state = State {
-        p: 4,
+        p: 5,
         q: 59,
         v: 7,
         identity: 13,
