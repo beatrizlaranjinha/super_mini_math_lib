@@ -1,6 +1,6 @@
 use std::error::Error;
 
-use crate::{eea, prime};
+use crate::math::{eea, prime};
 
 pub struct State {
     pub p: u32,

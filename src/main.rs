@@ -1,7 +1,8 @@
 use std::error::Error;
 
 use bit_struct::u6;
-use super_mini_math_lib::{Number, bit_add, eea, mdv, power, zk_guillou_quisquater::State};
+use rug::Integer;
+use super_mini_math_lib::zkgq2::State;
 
 fn main() -> Result<(), Box<dyn Error>> {
     /* let mut num = Number { value: [false; 32] };
@@ -14,17 +15,17 @@ fn main() -> Result<(), Box<dyn Error>> {
     //println!("{:?}", power);
     //let mdv = mdv(48, 18);
     //println!("{:?}", mdv);
-    let eea1 = eea(50, 977);
-    let eea2 = eea1.unwrap();
-    println!("{:?} {:?}", eea2, (eea2 * 50 % 977));
+    //let eea1 = eea(50, 977);
+    //let eea2 = eea1.unwrap();
+    //println!("{:?} {:?}", eea2, (eea2 * 50 % 977));
 
     let state = State {
-        p: 5,
-        q: 59,
-        v: 7,
-        identity: 13,
-        nonce: 59,
-        challange: 5,
+        p: Integer::from(17),
+        q: Integer::from(11),
+        v: Integer::from(7),
+        identity: Integer::from(13),
+        nonce: Integer::from(59),
+        challange: Integer::from(5),
     };
 
     state.guillou_quisquater()?;
